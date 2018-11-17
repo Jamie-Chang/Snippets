@@ -16,16 +16,39 @@ async def perform_task(request_id: int):
     print(f"Performing {request_id} ...")
     request_id_ctx.set(request_id)  # set the task ID here.
 
-    await asyncio.sleep(5)  # context switch
+    await asyncio.sleep(1)  # context switch
 
     # Same value after resuming.
     # statements can be executed inside f strings.
     print(f"... resuming {request_id_ctx.get()}.")
 
 
+async def _do_task():
+    # Context should be passed from caller
+    print(f"Performing {request_id_ctx.get()} ...")
+    await asyncio.sleep(1)
+    print(f"... resuming {request_id_ctx.get()}.")
+
+
+async def perform_task_depth(request_id: int):
+    """Perform some sort of task that context switches.
+
+    Calls `_do_task` to actually execute the task.
+    """
+    request_id_ctx.set(request_id)
+
+    # Here we call a new function
+    await _do_task()
+
+
 async def main():
-    # Perform tasks in parallel
+    print("Perform tasks in parallel to demonstrate context variables.")
     await asyncio.gather(*(perform_task(i) for i in range(20)))
+    print("Done\n\n")
+
+    print("Perform tasks in parallel to demonstrate passing context variables")
+    await asyncio.gather(*(perform_task_depth(i) for i in range(20)))
+    print("Done")
 
 
 if __name__ == '__main__':
