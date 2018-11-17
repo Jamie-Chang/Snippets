@@ -11,9 +11,6 @@ request_id_ctx: ContextVar[int] = ContextVar('request_id', default=42)
 
 async def perform_task(request_id: int):
     """Peform some sort of task that context switches.
-
-    Args:
-        (request_id): The task ID.
     """
     # Note the new f strings in python 3.7
     print(f"Performing {request_id} ...")
