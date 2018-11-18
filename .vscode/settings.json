@@ -1,3 +1,12 @@
 {
-    "python.pythonPath": "/coder/bin/python"
+    "python.pythonPath": "/coder/bin/python",
+    "python.unitTest.unittestArgs": [
+        "-v",
+        "-s",
+        ".",
+        "-p",
+        "test*.py"
+    ],
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": false
 }

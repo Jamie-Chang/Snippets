@@ -10,8 +10,7 @@ request_id_ctx: ContextVar[int] = ContextVar('request_id', default=42)
 
 
 async def perform_task(request_id: int):
-    """Peform some sort of task that context switches.
-    """
+    """Peform some sort of task that context switches."""
     # Note the new f strings in python 3.7
     print(f"Performing {request_id} ...")
     request_id_ctx.set(request_id)  # set the task ID here.
@@ -42,6 +41,7 @@ async def perform_task_depth(request_id: int):
 
 
 async def main():
+    """Run main method for the module."""
     print("Perform tasks in parallel to demonstrate context variables.")
     await asyncio.gather(*(perform_task(i) for i in range(20)))
     print("Done\n\n")
