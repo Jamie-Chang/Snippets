@@ -8,5 +8,5 @@
         "test*.py"
     ],
     "python.linting.enabled": true,
-    "python.linting.flake8Enabled": false
+    "python.linting.flake8Enabled": true
 }
